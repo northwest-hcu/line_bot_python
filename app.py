@@ -14,12 +14,12 @@ from linebot.models import (
 #flask
 app = Flask(__name__)
 
-fp=open('../secret.json','r',encoding='utf-8')
+fp=open('./secret.json','r',encoding='utf-8')
 data=json.load(fp)
 
 #鍵の定義
-channel_secret=data['secret_key']
-channel_access_token=data['access_token']
+channel_secret=data['channel_secret']
+channel_access_token=data['channel_access_token']
 if channel_secret is None:
     print('秘密鍵が存在しません.')
     sys.exit(1)
