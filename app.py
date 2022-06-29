@@ -9,7 +9,6 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-import openWeather as ow
 
 #flask
 app = Flask(__name__)
@@ -64,11 +63,9 @@ def callback():
         )
     elif events.message.type=="text":
         # print('テキスト< '+events.message.text+' >を受信しました.')
-        ans = ow.getWeatherInfo(events.message.text)
         line_bot_api.reply_message(
             events.reply_token,
-            #TextSendMessage(text='テキストを受け取りました.')
-            TextSendMessage(text=ans)
+            TextSendMessage(text='テキストを受け取りました.')
         )
 
     # if event is MessageEvent
