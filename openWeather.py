@@ -34,8 +34,8 @@ def getWeatherInfo(cityName):
         ans = ans + "現在の気温：" + str(cityData["main"]["temp"] - 273.15) + "¥n"
         ans = ans + "最高気温：" + str(cityData["main"]["temp_max"] - 273.15) + "¥n"
         ans = ans + "最低気温：" + str(cityData["main"]["temp_min"] - 273.15) + "¥n"
-        ans = ans + "湿度：" + str(cityData["main"]["humidity"])
-        ans = ans + "気圧：" + str(cityData["main"]["pressure"])
+        ans = ans + "湿度：" + str(cityData["main"]["humidity"]) + "¥n"
+        ans = ans + "気圧：" + str(cityData["main"]["pressure"]) + "¥n"
         ans = ans + "風速：" + str(cityData["wind"]["speed"])
         return ans
     else: 
