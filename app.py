@@ -1,5 +1,4 @@
 import os,sys,json,pprint
-
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookParser
@@ -10,6 +9,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+import openWeather as ow
 
 #flask
 app = Flask(__name__)
@@ -30,7 +30,6 @@ if channel_access_token is None:
 #LINEbot関係のインスタンス
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
-
 
 #example.com/callbackをwebhook URLに設定してる場合
 @app.route("/callback", methods=['POST'])
@@ -54,20 +53,22 @@ def callback():
     """
 
     #print('User ID:'+events.source.userId)
-    pprint.pprint(json.loads(body),width=40)
+    #pprint.pprint(json.loads(body),width=40)
     events=events[0]
 
     if events.message.type=="image":
         print('画像を受信しました.')
         line_bot_api.reply_message(
-        events.reply_token,
-        TextSendMessage(text='画像を受け取りました.')
+            events.reply_token,
+            TextSendMessage(text='画像を受け取りました.')
         )
     elif events.message.type=="text":
-        print('テキスト< '+events.message.text+' >を受信しました.')
+        # print('テキスト< '+events.message.text+' >を受信しました.')
+        ans = ow.getWeatherInfo(events.message.text)
         line_bot_api.reply_message(
-        events.reply_token,
-        TextSendMessage(text='テキストを受け取りました.')
+            events.reply_token,
+            #TextSendMessage(text='テキストを受け取りました.')
+            TextSendMessage(text=ans)
         )
 
     # if event is MessageEvent
